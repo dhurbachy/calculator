@@ -15,6 +15,15 @@ function App() {
   return (
     <main className="container">
       <h1>Welcome to Tauri + React</h1>
+      <div className="grid grid-cols-1">
+        <div>
+          <h2 className="text-2xl font-bold mb-4">Calculator</h2>
+        </div>
+        <div>
+          <h2 className="text-2xl font-bold mb-4">Calculator</h2>
+        </div>
+
+      </div>
 
       <div className="row">
         <a href="https://vite.dev" target="_blank">
