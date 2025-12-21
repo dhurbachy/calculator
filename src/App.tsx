@@ -17,7 +17,7 @@ function App() {
 
 
   return (
-    <main className="container w-[400px]">
+    <main className="container w-[400px] p-2">
       <div className="">
         <input type="text" readOnly className="w-full h-16 text-right border border-gray-300 rounded mt-4 mb-4 p-2 text-2xl" />
       </div>
