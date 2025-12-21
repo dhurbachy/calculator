@@ -11,35 +11,52 @@ function App() {
     // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
     setGreetMsg(await invoke("greet", { name }));
   }
+  const arithmeticActions = ['+', '-', 'x', '/'];
+  const numericalButtons = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '.', '='];
+  const bracketButtons = ['C','(', ')', '{', '}','AC'];
+
 
   return (
-    <main className="container">
-      <h1>Welcome to Tauri + React</h1>
-      <div className="grid grid-cols-1">
-        <div>
-          <h2 className="text-2xl font-bold mb-4">Calculator</h2>
+    <main className="container w-[400px]">
+      <div className="">
+        <input type="text" readOnly className="w-full h-16 text-right border border-gray-300 rounded mt-4 mb-4 p-2 text-2xl" />
+      </div>
+      <div className="grid grid-cols-6 gap-2">
+        {bracketButtons.map((button: string) => (
+          <div>
+            <button key={button} className="m-1 p-2 bg-gray-300 rounded w-full">{button}</button>
+          </div>
+        ))}
+      </div>
+      <div className="grid grid-cols-6 gap-2">
+        <div className="col-span-5">
+          <div className="grid grid-cols-3 gap-2">
+
+            {numericalButtons.map((num: string) => (
+              <div>
+                <button key={num} className="m-1 p-4 bg-gray-200 rounded w-full">{num}</button>
+              </div>))}
+
+          </div>
         </div>
-        <div>
-          <h2 className="text-2xl font-bold mb-4">Calculator</h2>
+        <div className="col-span-1">
+          <div className="grid grid-cols-1 gap-2">
+
+
+            {arithmeticActions.map((action: string) => (
+              <div>
+                <button key={action} className="m-1 p-2 bg-blue-500 w-full text-white rounded">{action}</button>
+              </div>
+            ))}
+          </div>
+
         </div>
 
       </div>
 
-      <div className="row">
-        <a href="https://vite.dev" target="_blank">
-          <img src="/vite.svg" className="logo vite" alt="Vite logo" />
-        </a>
-        <a href="https://tauri.app" target="_blank">
-          <img src="/tauri.svg" className="logo tauri" alt="Tauri logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <p>Click on the Tauri, Vite, and React logos to learn more.</p>
 
-      <form
-        className="row"
+      {/* <form
+        className="row "
         onSubmit={(e) => {
           e.preventDefault();
           greet();
@@ -51,8 +68,8 @@ function App() {
           placeholder="Enter a name..."
         />
         <button type="submit">Greet</button>
-      </form>
-      <p>{greetMsg}</p>
+      </form> */}
+      {/* <p>{greetMsg}</p> */}
     </main>
   );
 }
