@@ -6,6 +6,8 @@ import "./App.css";
 function App() {
   const [greetMsg, setGreetMsg] = useState("");
   const [name, setName] = useState("");
+  const [result,setResult]=useState<number>(0);
+
 
   async function greet() {
     // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
@@ -19,7 +21,7 @@ function App() {
   return (
     <main className="container w-[400px] p-2">
       <div className="">
-        <input type="text" readOnly className="w-full h-16 text-right border border-gray-300 rounded mt-4 mb-4 p-2 text-2xl" />
+        <input type="text" value={result} readOnly className="w-full h-16 text-right border border-gray-300 rounded mt-4 mb-4 p-2 text-2xl" />
       </div>
       <div className="grid grid-cols-6 gap-2">
         {bracketButtons.map((button: string) => (
