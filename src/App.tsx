@@ -22,7 +22,19 @@ function App() {
  const handleNumberClick = (num: string) => {
     setInputBuffer(prev => prev + num);
   };
+   const calculate = (inputValue: number) => {
+    setResult(prev => {
+      switch (operator) {
+        case "+": return prev + inputValue;
+        case "-": return prev - inputValue;
+        case "×": return prev * inputValue;
+        case "÷": return inputValue === 0 ? 0 : prev / inputValue;
+        default: return inputValue;
+      }
+    });
+  };
 
+  
 
 
   return (
