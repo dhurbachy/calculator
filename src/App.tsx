@@ -19,7 +19,9 @@ function App() {
   const bracketButtons = ['C', '(', ')', '{', '}', 'AC'];
 
 
-
+ const handleNumberClick = (num: string) => {
+    setInputBuffer(prev => prev + num);
+  };
 
 
 
