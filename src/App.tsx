@@ -8,21 +8,22 @@ function App() {
   const [name, setName] = useState("");
   const [inputBuffer, setInputBuffer] = useState("");   // digits being typed
   const [operator, setOperator] = useState<string | null>(null); // pending operator
-  const [result, setResult] = useState(0);             // accumulated value
-
+  const [result, setResult] = useState(0);
+  const [history, setHistory] = useState<string>('');
   async function greet() {
     // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
     setGreetMsg(await invoke("greet", { name }));
   }
-  const arithmeticActions = ['+', '-', 'x', '/'];
+  const arithmeticActions = ['+', '-', '×', '÷'];
   const numericalButtons = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '.', '='];
   const bracketButtons = ['C', '(', ')', '{', '}', 'AC'];
 
 
- const handleNumberClick = (num: string) => {
+  const handleNumberClick = (num: string) => {
     setInputBuffer(prev => prev + num);
+    setHistory(prev => prev + num);
   };
-   const calculate = (inputValue: number) => {
+  const calculate = (inputValue: number) => {
     setResult(prev => {
       switch (operator) {
         case "+": return prev + inputValue;
@@ -45,31 +46,57 @@ function App() {
     }
 
     setOperator(op);
-    setInputBuffer(""); // clear buffer for next number
+    setInputBuffer("");
+    setHistory(prev => prev + op)
   };
-const handleEqualsClick = () => {
+  const handleEqualsClick = () => {
     if (!operator) return;
 
     const inputValue = Number(inputBuffer || "0");
     calculate(inputValue);
     setOperator(null);
     setInputBuffer("");
+    setHistory(prev => prev)
   };
   const handleClearClick = () => {
     setInputBuffer("");
     setOperator(null);
     setResult(0);
+    setHistory("");
+
   };
+  const handleHistoryAndResult = () => {
+    if (inputBuffer) {
+      return operator
+        ? `${history} ${operator} ${inputBuffer}`
+        : inputBuffer;
+    }
+    if (operator && history.length) {
+      return `${history} ${operator}`;
+    }
+
+    if (!operator && history.length) {
+    return `${history} = ${result}`;
+  }
+
+
+    return '0';
+  }
 
   return (
     <main className="container w-[400px] p-2">
       <div className="">
-        <input type="text" value={result} readOnly className="w-full h-16 text-right border border-gray-300 rounded mt-4 mb-4 p-2 text-2xl" />
+        <input type="text"
+          // value={`${history}${operator === null && history.length ? " = " + result : ""}`}
+          value={handleHistoryAndResult()}
+
+          readOnly className="w-full h-16 text-right border border-gray-300 rounded mt-4 mb-4 p-2 text-2xl" />
+        {/* <span>{history}</span> */}
       </div>
       <div className="grid grid-cols-6 gap-2">
         {bracketButtons.map((button: string) => (
           <div>
-            <button key={button} className="m-1 p-2 bg-gray-300 rounded w-full">{button}</button>
+            <button key={button} onClick={() => { if (button === "=") handleEqualsClick(); else handleClearClick(); }} className="m-1 p-2 bg-gray-300 rounded w-full">{button}</button>
           </div>
         ))}
       </div>
@@ -79,7 +106,7 @@ const handleEqualsClick = () => {
 
             {numericalButtons.map((num: string) => (
               <div>
-                <button key={num} className="m-1 p-4 bg-gray-200 rounded w-full">{num}</button>
+                <button key={num} onClick={() => { if (num === "=") handleEqualsClick(); else handleNumberClick(num) }} className="m-1 p-4 bg-gray-200 rounded w-full">{num}</button>
               </div>))}
 
           </div>
@@ -90,7 +117,7 @@ const handleEqualsClick = () => {
 
             {arithmeticActions.map((action: string) => (
               <div>
-                <button key={action} className="m-1 p-2 bg-blue-500 w-full text-white rounded">{action}</button>
+                <button key={action} onClick={() => handleOperatorClick(action)} className="m-1 p-2 bg-blue-500 w-full text-white rounded">{action}</button>
               </div>
             ))}
           </div>
