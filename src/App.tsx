@@ -68,11 +68,11 @@ function App() {
   const handleHistoryAndResult = () => {
     if (inputBuffer) {
       return operator
-        ? `${history} ${operator} ${inputBuffer}`
+        ? `${history}`
         : inputBuffer;
     }
     if (operator && history.length) {
-      return `${history} ${operator}`;
+      return `${history}`;
     }
 
     if (!operator && history.length) {
