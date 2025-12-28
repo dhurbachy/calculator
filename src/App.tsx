@@ -36,14 +36,16 @@ function App() {
   };
 
   const handleOperatorClick = (op: string) => {
-    const inputValue = Number(inputBuffer || "0");
+    const inputValue =
+    inputBuffer !== ""
+      ? Number(inputBuffer)
+      : result;
 
-    if (operator) {
-      // calculate previous operation
-      calculate(inputValue);
-    } else {
-      setResult(inputValue);
-    }
+  if (operator) {
+    calculate(inputValue);
+  } else {
+    setResult(inputValue);
+  }
 
     setOperator(op);
     setInputBuffer("");
