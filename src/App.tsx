@@ -55,6 +55,11 @@ const handleEqualsClick = () => {
     setOperator(null);
     setInputBuffer("");
   };
+  const handleClearClick = () => {
+    setInputBuffer("");
+    setOperator(null);
+    setResult(0);
+  };
 
   return (
     <main className="container w-[400px] p-2">
