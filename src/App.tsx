@@ -47,7 +47,14 @@ function App() {
     setOperator(op);
     setInputBuffer(""); // clear buffer for next number
   };
+const handleEqualsClick = () => {
+    if (!operator) return;
 
+    const inputValue = Number(inputBuffer || "0");
+    calculate(inputValue);
+    setOperator(null);
+    setInputBuffer("");
+  };
 
   return (
     <main className="container w-[400px] p-2">
