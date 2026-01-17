@@ -34,7 +34,19 @@ function App() {
     });
   };
 
-  
+  const handleOperatorClick = (op: string) => {
+    const inputValue = Number(inputBuffer || "0");
+
+    if (operator) {
+      // calculate previous operation
+      calculate(inputValue);
+    } else {
+      setResult(inputValue);
+    }
+
+    setOperator(op);
+    setInputBuffer(""); // clear buffer for next number
+  };
 
 
   return (
