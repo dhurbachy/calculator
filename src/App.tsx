@@ -6,8 +6,9 @@ import "./App.css";
 function App() {
   const [greetMsg, setGreetMsg] = useState("");
   const [name, setName] = useState("");
-  const [result,setResult]=useState<number>(0);
-
+  const [inputBuffer, setInputBuffer] = useState("");   // digits being typed
+  const [operator, setOperator] = useState<string | null>(null); // pending operator
+  const [result, setResult] = useState(0);             // accumulated value
 
   async function greet() {
     // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
@@ -15,7 +16,11 @@ function App() {
   }
   const arithmeticActions = ['+', '-', 'x', '/'];
   const numericalButtons = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '.', '='];
-  const bracketButtons = ['C','(', ')', '{', '}','AC'];
+  const bracketButtons = ['C', '(', ')', '{', '}', 'AC'];
+
+
+
+
 
 
   return (
